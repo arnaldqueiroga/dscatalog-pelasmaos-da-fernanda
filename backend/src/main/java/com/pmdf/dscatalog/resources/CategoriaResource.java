@@ -18,9 +18,11 @@ import com.pmdf.dscatalog.services.CategoriaService;
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
 	
+	// Declarando dependência do Controlador para o Service
 	@Autowired
 	private CategoriaService service;
 	
+	// Primeiro end point da aplicação
 	@GetMapping	
 	public ResponseEntity<List<Categoria>> findAll(){
 		List<Categoria> list = service.findAll();
@@ -32,3 +34,5 @@ public class CategoriaResource {
 	
 
 }
+
+
