@@ -1,6 +1,5 @@
 package com.pmdf.dscatalog.resources;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,30 +8,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pmdf.dscatalog.entities.Categoria;
+import com.pmdf.dscatalog.dto.CategoriaDTO;
 import com.pmdf.dscatalog.services.CategoriaService;
 
-
-
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value = "/categorias")
 public class CategoriaResource {
-	
+
 	// Declarando dependência do Controlador para o Service
 	@Autowired
 	private CategoriaService service;
-	
+
 	// Primeiro end point da aplicação
-	@GetMapping	
-	public ResponseEntity<List<Categoria>> findAll(){
-		List<Categoria> list = service.findAll();
-		
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<CategoriaDTO> list = service.findAll();
+
 		return ResponseEntity.ok().body(list);
 	}
-	
-	
-	
 
 }
-
-
