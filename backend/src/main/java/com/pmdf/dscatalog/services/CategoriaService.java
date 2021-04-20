@@ -35,4 +35,14 @@ public class CategoriaService {
 		return new CategoriaDTO(entity);
 	}
 
+	// Criando o método insert
+	@Transactional
+	public CategoriaDTO insert(CategoriaDTO dto) {
+		Categoria entity = new Categoria();
+		entity.setNome(dto.getNome());
+		entity = repository.save(entity);
+		return new CategoriaDTO(entity);
+
+	}
+
 }
