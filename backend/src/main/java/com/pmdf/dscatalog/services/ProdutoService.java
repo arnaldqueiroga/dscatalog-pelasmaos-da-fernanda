@@ -12,8 +12,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pmdf.dscatalog.dto.CategoriaDTO;
 import com.pmdf.dscatalog.dto.ProdutoDTO;
+import com.pmdf.dscatalog.entities.Categoria;
 import com.pmdf.dscatalog.entities.Produto;
+import com.pmdf.dscatalog.repositories.CategoriaRepository;
 import com.pmdf.dscatalog.repositories.ProdutoRepository;
 import com.pmdf.dscatalog.services.exceptions.DatabaseException;
 import com.pmdf.dscatalog.services.exceptions.ResourceNotFoundException;
@@ -23,6 +26,9 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository repository;
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	@Transactional(readOnly = true)
 	public List<ProdutoDTO> findAll() {
@@ -44,18 +50,20 @@ public class ProdutoService {
 	@Transactional
 	public ProdutoDTO insert(ProdutoDTO dto) {
 		Produto entity = new Produto();
-		//entity.setNome(dto.getNome());
+		copyDtoToEntity(dto, entity);		
 		entity = repository.save(entity);
 		return new ProdutoDTO(entity);
 
 	}
+
+	
 
 	// Criando o método update
 	@Transactional
 	public ProdutoDTO update(Long id, ProdutoDTO dto) {
 		try {
 			Produto entity = repository.getOne(id);
-			//entity.setNome(dto.getNome());
+			copyDtoToEntity(dto, entity);		
 			entity = repository.save(entity);
 			return new ProdutoDTO(entity);
 		} catch (EntityNotFoundException e) {
@@ -80,6 +88,28 @@ public class ProdutoService {
 			throw new DatabaseException("Erro de Violação de Integridade");
 		}
 
+	}
+	
+	
+	// Método auxiliar 	copyDtoToEntity
+	private void copyDtoToEntity(ProdutoDTO dto, Produto entity) {
+		entity.setNome(dto.getNome());
+		entity.setDescricao(dto.getDescricao());
+		entity.setDate(dto.getDate());
+		entity.setImgUrl(dto.getImgUrl());
+		entity.setPreco(dto.getPreco());
+		
+		//Carregando categorias no dto para a entidade
+		entity.getCategorias().clear(); // para limpar as categorias
+		for (CategoriaDTO catDto : dto.getCategorias()) {
+			Categoria categoria = categoriaRepository.getOne(catDto.getId());
+			entity.getCategorias().add(categoria);			
+			
+			
+		}
+		
+		
+		
 	}
 
 }

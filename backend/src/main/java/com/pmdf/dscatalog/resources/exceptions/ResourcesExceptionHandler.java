@@ -23,7 +23,7 @@ public class ResourcesExceptionHandler {
 		ErroPadrao err = new ErroPadrao();
 		err.setTimestamp(Instant.now());
 		err.setStatus(status.value());
-		err.setError("Categoria não encontrada");
+		err.setError("Recurso não encontrado");
 		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
 
