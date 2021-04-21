@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.pmdf.dscatalog.services.exceptions.DatabaseException;
 import com.pmdf.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice // Anotation que irá permitir que a classe intercepte alguma exceção que
@@ -29,5 +30,23 @@ public class ResourcesExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 
 	}
+	
+	
+	
+	//Tratamento especial para a exceção DatabaseException	
+		@ExceptionHandler(DatabaseException.class)
+		public ResponseEntity<ErroPadrao> database(DatabaseException e, HttpServletRequest request) {
+			HttpStatus status = HttpStatus.BAD_REQUEST;
+			ErroPadrao err = new ErroPadrao();
+			err.setTimestamp(Instant.now());
+			err.setStatus(status.value());
+			err.setError("Database exception");
+			err.setMessage(e.getMessage());
+			err.setPath(request.getRequestURI());
+			
+			return ResponseEntity.status(status).body(err);
+			
+			
+		}
 
 }

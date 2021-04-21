@@ -2,3 +2,17 @@
 INSERT INTO tb_categoria (nome) VALUES ('Decoração');
 INSERT INTO tb_categoria (nome)  VALUES ('Acessórios');
 INSERT INTO tb_categoria (nome)  VALUES ('Painéis Decorativos');
+
+INSERT INTO tb_produto (nome, preco, date, descricao, img_url) VALUES ('Espelho', 90.5, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Espelho tipo Mandala, cores diversas', 'https://www.instagram.com/p/CK_cyDRrNPM/');
+INSERT INTO tb_produto (nome, preco, date, descricao, img_url) VALUES ('Painel Amor', 100.0, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Painel feito no galho natural com barbante de algodão na cor bordô', 'https://www.instagram.com/p/CGir8qlsJKI/');
+INSERT INTO tb_produto (nome, preco, date, descricao, img_url) VALUES ('Triangulo Energético', 145.0, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Triangulo Geométrico', 'https://www.instagram.com/p/CIQOS2Jspac/');
+INSERT INTO tb_produto (nome, preco, date, descricao, img_url) VALUES ('Suporte de plantas', 50.00, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Suporte na cor bordô', 'https://www.instagram.com/p/CKjNzzjr5Um/');
+INSERT INTO tb_produto (nome, preco, date, descricao, img_url) VALUES ('Luminaria', 50.00, TIMESTAMP WITH TIME ZONE '2020-07-13T20:50:07.12345Z', 'Luminária pendente em Macramê', 'https://www.instagram.com/p/CG5ueeqsugV/');
+
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (1, 1);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (2, 2);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (3, 2);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (4, 1);
+INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (5, 2);
+
+
