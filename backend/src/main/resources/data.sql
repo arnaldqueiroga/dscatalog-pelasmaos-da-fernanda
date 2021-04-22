@@ -15,19 +15,13 @@ INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (3, 2);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (4, 1);
 INSERT INTO tb_produto_categoria (produto_id, categoria_id) VALUES (5, 2);
 
-INSERT INTO tb_estado (nome) VALUES ('Rio de Janeiro');
-INSERT INTO tb_estado (nome) VALUES ('São Paulo');
-
-INSERT INTO tb_cidade (nome, estado_id) VALUES ('Rio das Ostras', 1);
-INSERT INTO tb_cidade (nome, estado_id) VALUES ('Macaé', 1);
-
-INSERT INTO tb_cliente (nome, email, cpf_Ou_Cnpj, tipo) VALUES ('Arnald Queiroga', 'arnald@email', '885.383.292-43', 1);
-
-INSERT INTO tb_endereco (bairro, cep, complemento, logradouro, numero, cidade_id, cliente_id) VALUES ('Marielia', '123456', 'Casa', 'Chacara', '18', 1, 1);
-
-INSERT INTO tb_telefone (cliente_id, telefones) VALUES (1, '89898989');
+INSERT INTO tb_cliente (nome, endereco, telefone, email, cpf_Ou_Cnpj, tipo) VALUES ('Arnald Queiroga', 'Rua das Flores, N49, Rio das Ostras', '9934567890', 'arnald@email', '885.383.292-43', 1);
 
 
+
+INSERT INTO tb_pedido (date, cliente_id) VALUES (TIMESTAMP WITH TIME ZONE '2021-04-22T20:50:07.12345Z', 1);
+INSERT INTO tb_pagamento (pedido_id, estado) VALUES (1, 1);
+INSERT INTO tb_pagamento_dinheiro (data_Pagamento, pedido_id) VALUES (TIMESTAMP WITH TIME ZONE '2021-04-22T21:50:07.12345Z', 1);
 
 
 

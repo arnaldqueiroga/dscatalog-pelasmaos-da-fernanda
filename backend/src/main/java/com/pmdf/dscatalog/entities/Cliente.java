@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,19 +24,19 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	
+	//mapear no BD como text, e não como varchar	
+	@Column(columnDefinition = "TEXT")
+	private String endereco;
+	
+	private String telefone;
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
-	//mapeamento entre Cliente e Endereço
-	@OneToMany(mappedBy="cliente") // mapeado pelo campo cliente
-	Set<Endereco> enderecos = new HashSet<>();
+	@OneToMany(mappedBy="cliente")  // mapeado do outro lado por pedido
+	Set<Pedido> pedidos = new HashSet<>();
 	
-	// Implementando uma coleção de telefones associadas a um cliente	
-	//mapeando telefones e cliente 
-	@ElementCollection
-	@CollectionTable(name="tb_telefone") // nome da tabela auxiliar que vai ter no banco pra guardar os telefones
-	private Set<String> telefones = new HashSet<>();
 	
 	public Cliente() {
 		
@@ -91,21 +90,15 @@ public class Cliente implements Serializable {
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
 	}
+	
+	
 
-	public Set<Endereco> getEnderecos() {
-		return enderecos;
+	public Set<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setEnderecos(Set<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-
-	public Set<String> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
@@ -131,6 +124,22 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	
 	
