@@ -21,6 +21,11 @@ INSERT INTO tb_estado (nome) VALUES ('São Paulo');
 INSERT INTO tb_cidade (nome, estado_id) VALUES ('Rio das Ostras', 1);
 INSERT INTO tb_cidade (nome, estado_id) VALUES ('Macaé', 1);
 
+INSERT INTO tb_cliente (nome, email, cpf_Ou_Cnpj, tipo) VALUES ('Arnald Queiroga', 'arnald@email', '885.383.292-43', 1);
+
+INSERT INTO tb_endereco (bairro, cep, complemento, logradouro, numero, cidade_id, cliente_id) VALUES ('Marielia', '123456', 'Casa', 'Chacara', '18', 1, 1);
+
+INSERT INTO tb_telefone (cliente_id, telefones) VALUES (1, '89898989');
 
 
 
