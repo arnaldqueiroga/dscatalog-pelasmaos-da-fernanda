@@ -2,7 +2,9 @@ package com.pmdf.dscatalog.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //Incluindo a anotation do PJA
@@ -42,6 +45,10 @@ public class Produto implements Serializable {
 		joinColumns = @JoinColumn(name = "produto_id"),
 		inverseJoinColumns  = @JoinColumn(name = "categoria_id"))	
 	Set<Categoria> categorias = new HashSet<>();
+	
+	// o produto conhece os itens dos pedidos associados a ele
+	@OneToMany(mappedBy="id.produto") // mapeado por id.produto
+	private Set<ItemPedido> itens = new HashSet<>();
 
 	public Produto() {
 
@@ -54,6 +61,19 @@ public class Produto implements Serializable {
 		this.preco = preco;
 		this.imgUrl = imgUrl;
 		this.date = date;
+	}
+	
+	// Um produto conhece os pedidos dele, dessa forma, é necessário ter um GetPedidos varrendo os itens de pedido
+	// montar uma lista de pedidos associados aos itens
+	public List<Pedido> getPedidos(){
+		// iniciando lista de pedidos
+		List<Pedido> lista = new ArrayList<>();
+		// percorrendo a lista de itens já existente aqui na classe
+		for (ItemPedido x : itens ) {
+			lista.add(x.getPedido());
+		}
+		return lista;
+		
 	}
 
 	public Long getId() {
@@ -107,6 +127,14 @@ public class Produto implements Serializable {
 	public Set<Categoria> getCategorias() {
 		return categorias;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 	@Override
 	public int hashCode() {
@@ -132,5 +160,9 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
+
+
 
 }

@@ -24,6 +24,9 @@ INSERT INTO tb_pagamento (pedido_id, estado) VALUES (1, 1);
 INSERT INTO tb_pagamento_dinheiro (data_Pagamento, pedido_id) VALUES (TIMESTAMP WITH TIME ZONE '2021-04-22T21:50:07.12345Z', 1);
 
 
+INSERT INTO tb_item_pedido (preco, quantidade, produto_id, pedido_id) VALUES (90.5, 1, 1, 1);
+
+
 
 
 

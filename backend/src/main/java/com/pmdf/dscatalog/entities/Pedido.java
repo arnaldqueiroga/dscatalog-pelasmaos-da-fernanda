@@ -2,6 +2,8 @@ package com.pmdf.dscatalog.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,6 +39,10 @@ public class Pedido implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="cliente_id") // chave estrangeira
 	private Cliente cliente;
+	
+	// o pedido conhece os itens dos pedidos associados a ele
+	@OneToMany(mappedBy="id.pedido") // Pq do outro lado eu tenho o itempedido que tem o objeto id, e o id é é um objeto auxiliar que vai ter referencia pro pedido
+	private Set<ItemPedido> itens = new HashSet<>();
 	
 	
 	public Pedido() {
@@ -89,6 +96,15 @@ public class Pedido implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 
 	@Override
@@ -116,10 +132,8 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
+
 	
 	
 	
