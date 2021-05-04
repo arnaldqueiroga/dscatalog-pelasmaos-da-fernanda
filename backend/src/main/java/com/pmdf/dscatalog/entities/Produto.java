@@ -18,6 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //Incluindo a anotation do PJA
 @Entity
 @Table(name = "tb_produto") // anotation para definir o nome da tabela
@@ -39,15 +41,17 @@ public class Produto implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 
-	// Mapeamento da criação da tabela de associação entre Produto e Categoria
+	// Mapeamento da criação da tabela de associação entre Produto e Categoria	
 	@ManyToMany
 	@JoinTable(name = "tb_produto_categoria", 
 		joinColumns = @JoinColumn(name = "produto_id"),
 		inverseJoinColumns  = @JoinColumn(name = "categoria_id"))	
 	Set<Categoria> categorias = new HashSet<>();
 	
+	
+	//@JsonIgnore// mandar igonar a lista de itens associados ao produto
 	// o produto conhece os itens dos pedidos associados a ele
-	@OneToMany(mappedBy="id.produto") // mapeado por id.produto
+	@OneToMany(mappedBy="id.produto") // mapeado por id.produto com base ao que já foi feito na classe pedido
 	private Set<ItemPedido> itens = new HashSet<>();
 
 	public Produto() {
@@ -63,8 +67,11 @@ public class Produto implements Serializable {
 		this.date = date;
 	}
 	
+
+	
 	// Um produto conhece os pedidos dele, dessa forma, é necessário ter um GetPedidos varrendo os itens de pedido
 	// montar uma lista de pedidos associados aos itens
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		// iniciando lista de pedidos
 		List<Pedido> lista = new ArrayList<>();

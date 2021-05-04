@@ -31,6 +31,7 @@ public class Pedido implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 	
+	
 	// mapeando o pagamento
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido") // para não dar erro de entidade transiente quando for salvar um pedido e o pagamento dele
 	private Pagamento pagamento;
@@ -42,7 +43,7 @@ public class Pedido implements Serializable {
 	
 	// o pedido conhece os itens dos pedidos associados a ele
 	@OneToMany(mappedBy="id.pedido") // Pq do outro lado eu tenho o itempedido que tem o objeto id, e o id é é um objeto auxiliar que vai ter referencia pro pedido
-	private Set<ItemPedido> itens = new HashSet<>();
+    Set<ItemPedido> itens = new HashSet<>();
 	
 	
 	public Pedido() {

@@ -5,28 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pmdf.dscatalog.entities.Cliente;
 
-
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>{
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

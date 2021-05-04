@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pmdf.dscatalog.repositories.enums.EstadoPagamento;
 
 //Incluindo a anotation do PJA
@@ -25,6 +26,8 @@ public abstract class Pagamento implements Serializable {  // abstrata para gara
 	private Long id;
 	private Integer estado;
 	
+	
+	@JsonIgnore
 	// notação pra concilicar o mesmo id para pagamento e pedido
 	@OneToOne
 	@JoinColumn(name="pedido_id") // coluna correspondente ao Id do Pedido

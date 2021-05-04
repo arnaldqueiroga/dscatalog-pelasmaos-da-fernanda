@@ -52,32 +52,21 @@ public class ProdutoResource {
 		return ResponseEntity.created(uri).body(dto);
 
 	}
-	
+
 	// Criando End Point para atualizar Produto - PUT
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProdutoDTO> update(@PathVariable Long id, @RequestBody ProdutoDTO dto){
+	public ResponseEntity<ProdutoDTO> update(@PathVariable Long id, @RequestBody ProdutoDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
-				
+
 	}
-	
+
 	// Criando End Point para deletar Produto - DELET
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id){
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
-				
+
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-

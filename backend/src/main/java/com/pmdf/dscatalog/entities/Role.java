@@ -1,36 +1,31 @@
 package com.pmdf.dscatalog.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_categoria")
-public class Categoria implements Serializable {
+@Table(name = "tb_role")
+public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
-	
-	@ManyToMany(mappedBy = "categorias")
-	private Set<Produto> produtos = new HashSet<>();
-	
-	public Categoria() {
-		
+	private String authority;
+
+	public Role() {
+
 	}
 
-	public Categoria(Long id, String nome) {		
+	public Role(Long id, String authority) {
+		super();
 		this.id = id;
-		this.nome = nome;
+		this.authority = authority;
 	}
 
 	public Long getId() {
@@ -41,18 +36,12 @@ public class Categoria implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	
-
-	public Set<Produto> getProdutos() {
-		return produtos;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 
 	@Override
@@ -71,7 +60,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Role other = (Role) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -79,10 +68,5 @@ public class Categoria implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
 
 }

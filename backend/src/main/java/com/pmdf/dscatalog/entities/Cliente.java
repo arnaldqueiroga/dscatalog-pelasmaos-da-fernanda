@@ -12,43 +12,41 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.pmdf.dscatalog.repositories.enums.TipoCliente;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_cliente") // anotation para definir o nome da tabela
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	
-	//mapear no BD como text, e não como varchar	
+	// mapear no BD como text, e não como varchar
 	@Column(columnDefinition = "TEXT")
 	private String endereco;
-	
 	private String telefone;
 	private String email;
-	private String cpfOuCnpj;
-	private Integer tipo;
-	
-	@OneToMany(mappedBy="cliente")  // mapeado do outro lado por pedido
+	private String cpf;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente") // mapeado do outro lado por pedido
 	Set<Pedido> pedidos = new HashSet<>();
-	
-	
+
 	public Cliente() {
-		
+
 	}
 
-	public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Long id, String nome, String endereco, String telefone, String email, String cpf) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.endereco = endereco;
+		this.telefone = telefone;
 		this.email = email;
-		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.cpf = cpf;
+
 	}
 
 	public Long getId() {
@@ -75,23 +73,13 @@ public class Cliente implements Serializable {
 		this.email = email;
 	}
 
-	public String getCpfOuCnpj() {
-		return cpfOuCnpj;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setCpfOuCnpj(String cpfOuCnpj) {
-		this.cpfOuCnpj = cpfOuCnpj;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
-
-	public TipoCliente getTipo() {
-		return TipoCliente.toEnum(tipo);
-	}
-
-	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.getCod();
-	}
-	
-	
 
 	public Set<Pedido> getPedidos() {
 		return pedidos;
@@ -141,11 +129,5 @@ public class Cliente implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
-	
-	
-	
-	
-	
 
 }

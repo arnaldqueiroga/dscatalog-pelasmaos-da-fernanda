@@ -26,7 +26,7 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository repository;
-	
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
@@ -38,7 +38,7 @@ public class ProdutoService {
 
 	}
 
-	// Método FindById - Para buscar todas as categorias por Id
+	// Método FindById - Para buscar as categorias por Id
 	@Transactional(readOnly = true)
 	public ProdutoDTO findbyId(Long id) {
 		Optional<Produto> obj = repository.findById(id);
@@ -50,20 +50,18 @@ public class ProdutoService {
 	@Transactional
 	public ProdutoDTO insert(ProdutoDTO dto) {
 		Produto entity = new Produto();
-		copyDtoToEntity(dto, entity);		
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new ProdutoDTO(entity);
 
 	}
-
-	
 
 	// Criando o método update
 	@Transactional
 	public ProdutoDTO update(Long id, ProdutoDTO dto) {
 		try {
 			Produto entity = repository.getOne(id);
-			copyDtoToEntity(dto, entity);		
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new ProdutoDTO(entity);
 		} catch (EntityNotFoundException e) {
@@ -89,27 +87,23 @@ public class ProdutoService {
 		}
 
 	}
-	
-	
-	// Método auxiliar 	copyDtoToEntity
+
+	// Método auxiliar copyDtoToEntity
 	private void copyDtoToEntity(ProdutoDTO dto, Produto entity) {
 		entity.setNome(dto.getNome());
 		entity.setDescricao(dto.getDescricao());
 		entity.setDate(dto.getDate());
 		entity.setImgUrl(dto.getImgUrl());
 		entity.setPreco(dto.getPreco());
-		
-		//Carregando categorias no dto para a entidade
+
+		// Carregando os pedidos no dto para a entidade
 		entity.getCategorias().clear(); // para limpar as categorias
 		for (CategoriaDTO catDto : dto.getCategorias()) {
 			Categoria categoria = categoriaRepository.getOne(catDto.getId());
-			entity.getCategorias().add(categoria);			
-			
-			
+			entity.getCategorias().add(categoria);
+
 		}
-		
-		
-		
+
 	}
 
 }

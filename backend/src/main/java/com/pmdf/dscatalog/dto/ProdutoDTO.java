@@ -21,6 +21,7 @@ public class ProdutoDTO implements Serializable {
 
 	// Criando a lista de categorias
 	private List<CategoriaDTO> categorias = new ArrayList<>();
+	
 
 	// Construtor vazio
 	public ProdutoDTO() {
@@ -46,13 +47,19 @@ public class ProdutoDTO implements Serializable {
 		this.imgUrl = entity.getImgUrl();
 		this.date = entity.getDate();
 	}
+	
+	
 
 	// Construtor recebendo as categorias para instanciar o DTO que receberá a
 	// entidade do construtor acima (essa é a nossa sobrecarga)
 	public ProdutoDTO(Produto entity, Set<Categoria> categorias) {
 		this(entity); // Está chamando a execução do entity do construtor criado acima...
 		categorias.forEach(cat -> this.categorias.add(new CategoriaDTO(cat)));
+		
 	}
+	
+
+
 
 	public Long getId() {
 		return id;
@@ -109,6 +116,8 @@ public class ProdutoDTO implements Serializable {
 	public void setCategorias(List<CategoriaDTO> categorias) {
 		this.categorias = categorias;
 	}
+
+	
 	
 	
 

@@ -6,6 +6,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // construindo classe de associação ItemPedido
 // E o que a identifica, é a classe produto e pedido. Pois ela não possui um Id
 // para isso foi criada uma chave composta. Daí originou-se a ideia de criar uma outra classe, chamada ItemPedidoPK
@@ -18,8 +20,10 @@ public class ItemPedido  implements Serializable {
 	
 	// essa classe vai ter como Id, um objeto do tipo ItemPedidoPK já instanciado. 
 	// Esse Id é do tipo composto
+	@JsonIgnore // para o ItemPedidoPK não ser serializado
 	@EmbeddedId // notação pra dizer que este é um Id embutido em um tiop auxiliar
 	private ItemPedidoPK id = new ItemPedidoPK();
+	
 	
 	private Integer quantidade;
 	private Double preco;
@@ -41,12 +45,13 @@ public class ItemPedido  implements Serializable {
 	
 	// para ter acesso ao pedido fora da classe	ItemPedido, pois isso faz mais sentido do que ter que acessar
 	// primeiro o Id, e depois dentro do Id acessar o produto e o pedido
+	@JsonIgnore// ignorar referência cíclica
 	public Pedido getPedido() {
 		return id.getPedido();
 
 	}
 	
-	// para ter acesso ao produto fora da classe	ItemPedido
+	// para ter acesso ao produto fora da classe	ItemPedido	
 	public Produto getProduto() {
 		return id.getProduto();
 
