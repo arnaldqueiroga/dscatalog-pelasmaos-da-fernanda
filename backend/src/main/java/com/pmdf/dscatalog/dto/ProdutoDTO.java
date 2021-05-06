@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 import com.pmdf.dscatalog.entities.Categoria;
 import com.pmdf.dscatalog.entities.Produto;
 
@@ -13,10 +17,19 @@ public class ProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	
+	@Size(min = 5, max = 60, message = "Deve ter entre 5 a 60 caracteres")
+	@NotBlank(message = "Campo requerido")
 	private String nome;
+	
+	@NotBlank(message = "Campo requerido")
 	private String descricao;
+	
+	@Positive(message = "Preço deve ser uma valor positivo")
 	private Double preco;
 	private String imgUrl;
+	
+	//@PastOrPresent(message = "A data do produto não pode ser futura")
 	private Instant date;
 
 	// Criando a lista de categorias

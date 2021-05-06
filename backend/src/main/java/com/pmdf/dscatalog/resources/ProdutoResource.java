@@ -3,6 +3,8 @@ package com.pmdf.dscatalog.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,7 +46,7 @@ public class ProdutoResource {
 	// Criando End Point para inserir uma nova categoria - POST
 
 	@PostMapping
-	public ResponseEntity<ProdutoDTO> insert(@RequestBody ProdutoDTO dto) {
+	public ResponseEntity<ProdutoDTO> insert(@Valid @RequestBody ProdutoDTO dto) {
 		dto = service.insert(dto);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
@@ -55,7 +57,7 @@ public class ProdutoResource {
 
 	// Criando End Point para atualizar Produto - PUT
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProdutoDTO> update(@PathVariable Long id, @RequestBody ProdutoDTO dto) {
+	public ResponseEntity<ProdutoDTO> update(@Valid @PathVariable Long id, @RequestBody ProdutoDTO dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 
