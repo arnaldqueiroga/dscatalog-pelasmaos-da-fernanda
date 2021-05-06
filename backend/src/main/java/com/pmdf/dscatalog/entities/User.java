@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,9 @@ public class User implements Serializable {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String email;
+	
+	@Column (unique = true)
+	private String email;	
 	private String password;
 
 	// Mapeamento a tabela de associação entre usuário e role
@@ -40,7 +43,7 @@ public class User implements Serializable {
 		super();
 		this.id = id;
 		this.firstName = firstName;
-		this.lastName = lastName;
+		this.lastName = lastName;	
 		this.email = email;
 		this.password = password;
 	}
