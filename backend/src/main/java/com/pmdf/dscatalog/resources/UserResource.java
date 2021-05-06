@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pmdf.dscatalog.dto.UserDTO;
 import com.pmdf.dscatalog.dto.UserInsertDTO;
+import com.pmdf.dscatalog.dto.UserUpdateDTO;
 import com.pmdf.dscatalog.services.UserService;
 
 @RestController
@@ -58,9 +59,9 @@ public class UserResource {
 
 	// Criando End Point para atualizar User - PUT
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserDTO dto) {
-		dto = service.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
+		UserDTO newDto = service.update(id, dto);
+		return ResponseEntity.ok().body(newDto);
 
 	}
 
