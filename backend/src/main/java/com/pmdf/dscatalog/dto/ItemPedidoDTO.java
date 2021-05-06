@@ -10,12 +10,12 @@ public class ItemPedidoDTO {
 	private Double preco;
 	
 	// Construtor vazio
-	public ItemPedidoDTO() {
+		public ItemPedidoDTO() {
+			
+		}
 		
-	}
-	
-	// Construtor com argumentos
-	public ItemPedidoDTO(Integer quantidade, Double preco, ItemPedidoPK id ) {
+		// Construtor com argumentos
+	public ItemPedidoDTO(ItemPedidoPK id, Integer quantidade, Double preco) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
@@ -27,7 +27,14 @@ public class ItemPedidoDTO {
 		this.id = entity.getId();
 		this.quantidade = entity.getQuantidade();
 		this.preco = entity.getPreco();
-		
+	}
+
+	public ItemPedidoPK getId() {
+		return id;
+	}
+
+	public void setId(ItemPedidoPK id) {
+		this.id = id;
 	}
 
 	public Integer getQuantidade() {
@@ -45,18 +52,9 @@ public class ItemPedidoDTO {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
-	public ItemPedidoPK getId() {
-		return id;
-	}
-
-	public void setId(ItemPedidoPK id) {
-		this.id = id;
-	}
 	
 	
-	
-	
-	
+		
+		
 
 }

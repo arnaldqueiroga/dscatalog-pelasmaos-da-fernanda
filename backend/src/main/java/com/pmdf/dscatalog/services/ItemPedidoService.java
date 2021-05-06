@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pmdf.dscatalog.dto.ItemPedidoDTO;
 import com.pmdf.dscatalog.entities.ItemPedido;
+import com.pmdf.dscatalog.entities.ItemPedidoPK;
 import com.pmdf.dscatalog.repositories.ItemPedidoRepository;
 import com.pmdf.dscatalog.services.exceptions.ResourceNotFoundException;
 
@@ -20,7 +21,7 @@ public class ItemPedidoService {
 
 	// Método FindById - Para buscar todas as categorias por Id
 	@Transactional(readOnly = true)
-	public ItemPedidoDTO findbyId(Long id) {
+	public ItemPedidoDTO findbyId(ItemPedidoPK id) {
 		Optional<ItemPedido> obj = repository.findById(id);
 		ItemPedido entity = obj.orElseThrow(() -> new ResourceNotFoundException("ItemPedido não encontrada"));
 		return new ItemPedidoDTO(entity);

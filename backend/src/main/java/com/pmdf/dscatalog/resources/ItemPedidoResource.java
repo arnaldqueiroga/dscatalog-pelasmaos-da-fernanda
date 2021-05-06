@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pmdf.dscatalog.dto.ItemPedidoDTO;
+import com.pmdf.dscatalog.entities.ItemPedidoPK;
 import com.pmdf.dscatalog.services.ItemPedidoService;
 
 @RestController
@@ -21,7 +22,7 @@ public class ItemPedidoResource {
 
 	// End-point oara buscar ItemPedido por Id - GET
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ItemPedidoDTO> findById(@PathVariable Long id) {
+	public ResponseEntity<ItemPedidoDTO> findById(@PathVariable ItemPedidoPK id) {
 
 		ItemPedidoDTO dto = service.findbyId(id);
 		return ResponseEntity.ok().body(dto);

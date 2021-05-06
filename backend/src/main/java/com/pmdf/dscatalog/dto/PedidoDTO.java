@@ -47,7 +47,11 @@ public class PedidoDTO {
 	// Construtor recebendo as categorias para instanciar o DTO que receberá a
 	// entidade do construtor acima (essa é a nossa sobrecarga)
 	public PedidoDTO(Pedido entity, Set<ItemPedido> itens) {
-		this(entity); // Está chamando a execução do entity do construtor criado acima...
+		//this(entity); // Está chamando a execução do entity do construtor criado acima...
+		id = entity.getId();
+		date = entity.getDate();
+		pagamento = entity.getPagamento();
+		cliente = entity.getCliente();
 		itens.forEach(cat -> this.itens.add(new ItemPedidoDTO(cat)));
 	}
 	

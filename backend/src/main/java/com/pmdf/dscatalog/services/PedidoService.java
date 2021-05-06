@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+//import com.pmdf.dscatalog.dto.ItemPedidoDTO;
 import com.pmdf.dscatalog.dto.PedidoDTO;
+//import com.pmdf.dscatalog.entities.ItemPedido;
 import com.pmdf.dscatalog.entities.Pedido;
+//import com.pmdf.dscatalog.repositories.ItemPedidoRepository;
 import com.pmdf.dscatalog.repositories.PedidoRepository;
 import com.pmdf.dscatalog.services.exceptions.ResourceNotFoundException;
 
@@ -18,6 +21,11 @@ public class PedidoService {
 
 	@Autowired
 	private PedidoRepository repository;
+	
+	//@Autowired
+	//private ItemPedidoRepository itemPedidoRepository;
+	
+	
 	
 	
 
@@ -38,8 +46,25 @@ public class PedidoService {
 	}
 	
 	
+	// Método auxiliar copyDtoToEntity
+//	private void copyDtoToEntity(PedidoDTO dto, Pedido entity) {
+//		entity.setDate(dto.getDate());
+//		entity.setPagamento(dto.getPagamento());
+//		entity.setCliente(dto.getCliente());
+//	
+//
+//		// Carregando os pedidos no dto para a entidade
+//		entity.getItens().clear(); // para limpar as categorias
+//		for (ItemPedidoDTO itensDto : dto.getItens()) {
+//			ItemPedido itens = itemPedidoRepository.getOne(itensDto.getId());
+//			entity.getItens().add(itens);
+//
+//		}
+//
+//	}
 	
-
-
+	
+	
+	
 
 }
