@@ -6,9 +6,14 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +30,9 @@ import com.pmdf.dscatalog.services.exceptions.DatabaseException;
 import com.pmdf.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
+	
+	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 	
 	// Injetando o BCrypt que foi instanciado da classe AppConfig
 	@Autowired
@@ -112,6 +119,20 @@ public class UserService {
 
 		}
 
+	}
+	
+	// Foi implementado um método que dado um UserName, o que é retornado é o UserDetails
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// implementando busca por email
+		User user = repository.findByEmail(username);
+		if (user == null) {
+			logger.error("Usuário não encontrado: " + username);
+			throw new UsernameNotFoundException("Email não encontrado");
+		}
+		
+		logger.info("Usuário encontrado:  " + username);
+		return user;
 	}
 
 }
