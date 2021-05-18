@@ -1,5 +1,7 @@
 package com.pmdf.dscatalog.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,13 +11,19 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import com.pmdf.dscatalog.components.JwtTokenEnhancer;
+
 
 // classe estendendo o AuthorizationServerConfigurerAdapter do próprio Spring Security
 @Configuration
 @EnableAuthorizationServer // essa annotation faz o processamento por baixo dos panos pra indicar que essa classe é que vai exercer o papel de Servidor de autorização
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+	
+
 	
 	// injetando os objetos que vamos precisar usar
 	@Autowired
@@ -30,7 +38,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	
+	@Autowired
+	private JwtTokenEnhancer tokenEnhancer;
 	
 	
 	@Override
@@ -53,9 +62,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	// neste bloco, é pra indicar quem é que vai autorizar, e qual vai ser o formato do token
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		
+		TokenEnhancerChain chain = new TokenEnhancerChain();
+		chain.setTokenEnhancers(Arrays.asList(accessTokenConverter, tokenEnhancer));
+		
 		endpoints.authenticationManager(authenticationManager)
 		.tokenStore(tokenStore)  // quais vão ser os objetos responsáveis por processar o token
-		.accessTokenConverter(accessTokenConverter);
+		.accessTokenConverter(accessTokenConverter)
+		.tokenEnhancer(chain);
 	}
 	
 	
